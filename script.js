@@ -10,3 +10,15 @@ for(let i=1;i<17;i++){
         console.log('added!!')
     }
 }
+
+
+
+var grids = document.querySelectorAll('.grids');
+var Grids = Array.from(grids)
+// Add a mouseover event listener
+Grids.forEach(function(grid){
+    grid.addEventListener("mouseover", function() {
+        // Your event handling code here
+        grid.style.backgroundColor = 'blue';
+    });
+});
