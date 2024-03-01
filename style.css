@@ -9,7 +9,6 @@
     display: flex;
     flex-grow: 1;
     flex-direction: row;
-    background-color:;
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
@@ -33,7 +32,8 @@ html,body{
 
 .grids{
     display: flex;
-    flex: 1 1 calc(100%/16);
+    flex-grow: 1;
+    flex-shrink: 1;
     border: 0px solid black;
     border: none;
     margin: 0;
