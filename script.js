@@ -1,52 +1,51 @@
-let gridContainer = document.querySelector('.grid');
-function gridMaker(size){
-    let count = 0;
-    for(let i=1;i<=size;i++){
-        for(let j=1;j<=size;j++){
-            let div = document.createElement("div");
-            div.classList.add("grids");
-            count +=1;
-            div.innerText= count;
-            gridContainer.appendChild(div);
-            //console.log('added!!')
-            let divs = document.querySelectorAll(".grids");
-            let divArray = Array.from(divs);
-            var flexBasisValue = (100/size);
-            flexBasisValue = String(flexBasisValue) + "%";
-            //console.log(flexBasisValue);
-            divArray.forEach(function(div){
-        
-                div.style.flexBasis= flexBasisValue;
-            })
-            pen();
+const body = document.querySelector('body');
+
+function createGrid(size) {
+    const gridContainer = document.createElement('div');
+    gridContainer.classList.add('grid');
+    
+    const fragment = document.createDocumentFragment(); // Create a document fragment to hold grid elements
+    
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            const div = document.createElement('div');
+            //div.classList.add('grids');
+            //div.textContent = i * size + j + 1; // Assigning unique numbers to each square
+            fragment.appendChild(div);
         }
     }
-};
+    
+    gridContainer.appendChild(fragment); // Append all grid elements at once
+    
+    const flexBasisValue = (100 / size) + "%";
+    const grids = Array.from(gridContainer.querySelectorAll('.grids'));
+    grids.forEach(grid => grid.style.flexBasis = flexBasisValue);
 
-gridMaker(16);
+    body.appendChild(gridContainer);
+    pen(); // Attach mouseover event listeners to grids
+}
 
-
-let change = document.querySelector(".btn");
-change.addEventListener('click',(event) => {
-    let newSize = Number(prompt("Number of Squares?"));
-    let divs = document.querySelectorAll(".grids");
-    let divArray = Array.from(divs);
-    divArray.forEach(function(div){
-        div.parentNode.removeChild(div);
-    })
-    gridMaker(newSize);
-})
-
-
-
-function pen(){
-    var grids = document.querySelectorAll('.grids');
-    var Grids = Array.from(grids)
-// Add a mouseover event listener
-    Grids.forEach(function(grid){
-        grid.addEventListener("mouseover", function() {
-            // Your event handling code here
+function pen() {
+    const grids = document.querySelectorAll('.grids');
+    grids.forEach(grid => {
+        grid.addEventListener('mouseover', () => {
             grid.style.backgroundColor = 'blue';
         });
     });
 }
+
+// Initial grid creation
+createGrid(16);
+
+// Event listener for changing grid size
+const changeButton = document.querySelector(".btn");
+changeButton.addEventListener('click', () => {
+    const newSize = Number(prompt("Number of Squares?"));
+    while (newSize>=100){
+        const newSize = Number(prompt("Number of Squares?"));
+    }
+    const gridContainer = document.querySelector('.grid');
+    gridContainer.remove();
+    createGrid(newSize);
+});
+
